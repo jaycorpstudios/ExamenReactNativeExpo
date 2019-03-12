@@ -15,8 +15,23 @@ import {
 
 import CurrentWeight from './components/CurrentWeight';
 import AddRecord from './components/AddRecord';
+import WeightItem from './components/WeightItem';
 
 export default class App extends Component {
+
+  renderWeightItems(){
+    return this.state.records.map(record => {
+        return (
+          <WeightItem
+             key = {record.id}
+             weight ={record.weigth}
+             date ={record.date}
+          />
+        )
+    })
+    
+  }
+  
 
   constructor(props){
     super(props);
@@ -33,6 +48,12 @@ export default class App extends Component {
     }
   }
 
+  componentDidMount(){
+    let records = [...this.state.records];
+    records.sort( (recordA,recordB) => recordB.date - recordA.date); 
+    this.setState({records})
+  }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -40,7 +61,7 @@ export default class App extends Component {
           <Text style={styles.headerText}>Registros de Peso</Text>
         </View>
         <View style={styles.currentWeight}>
-          <CurrentWeight currentWeigth={this.state.records[0]}/>
+          <CurrentWeight weigth={this.state.records[0].weigth}/>
         </View>
         <View style={styles.newRecord}>
           <AddRecord/>
@@ -55,17 +76,7 @@ export default class App extends Component {
           </TouchableHighlight>
           </View>
           <ScrollView style={styles.recordsContent}>
-
-            <View style={styles.recordContainer}>
-              <Text style={styles.recordWeightText}>95.0</Text>
-              <Text style={styles.recordDateText}>Feb. 12/2018 9:30 a.m.</Text>
-            </View>
-
-            <View style={styles.recordContainer}>
-              <Text style={styles.recordWeightText}>96.1</Text>
-              <Text style={styles.recordDateText}>Feb. 11/2018 9:20 a.m.</Text>
-            </View>
-
+            {this.renderWeightItems()}
           </ScrollView>
         </View>
       </View>
@@ -115,24 +126,5 @@ const styles = StyleSheet.create({
   touchableBarText: {
     fontSize: 15,
     color: 'white'
-  },
-  recordContainer:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 48,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e4e4e4',
-    paddingLeft: 20,
-    paddingRight: 20
-  },
-  recordWeightText: {
-    fontSize: 21,
-    color: '#f76d1d'
-  },
-  recordDateText: {
-    fontSize: 21,
-    color: 'gray'
   }
-
 });

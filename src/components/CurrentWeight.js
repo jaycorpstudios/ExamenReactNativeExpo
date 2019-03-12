@@ -15,7 +15,7 @@ import {
 
 export default class CurrentWeight extends Component<Props> {
   render() {
-    const {weigth} = this.props.currentWeigth;
+    const {weigth} = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.currentText}>Actual</Text>
