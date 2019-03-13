@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight
 } from 'react-native';
+import Helper from './../shared/Helper';
 
 
 
@@ -22,7 +23,23 @@ export default class AddRecord extends Component<Props> {
       //Add Validation here, you can investigate hot to test a Regular Expression on JavaScript.
     }
 
+    constructor(props){
+      super(props);
+      this.state={
+        inputValue: '78.4'
+      }
+    }
+
+   /* 
+      addRecord(){
+      var newStateArray = this.state.records.slice();
+      newStateArray.push({ id: 7, weigth: 100, date: 1519449400000 });
+      this.setState({records: newStateArray});
+     }
+     */
+
   render() {
+    
     return (
       <View style={styles.container}>
         <View style={styles.inputsContainer}>
@@ -30,14 +47,18 @@ export default class AddRecord extends Component<Props> {
               style={styles.inputText}
               autoCorrect={false}
               underlineColorAndroid='transparent'
-              placeholder={'Peso'}/>
+              placeholder={'Peso'}
+              keyboardType='numeric'
+              editable={true}
+              onChangeText={(text) => this.setState({inputValue})}
+              value={this.state.inputValue}/>
           <TextInput
               style={styles.inputText}
-              placeholder={'Ene. 02/2018'}
+              placeholder={'Hoy'}
               editable={false}/>
         </View>
         <View style={styles.actionContainer}>
-          <TouchableHighlight style={styles.addButton}>
+          <TouchableHighlight /*onPress={this.addRecord()}*/ style={styles.addButton}>
             <Text style={styles.addButtonText}>AGREGAR</Text>
           </TouchableHighlight>
         </View>
