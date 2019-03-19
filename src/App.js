@@ -53,7 +53,18 @@ export default class App extends Component {
     records.sort( (recordA,recordB) => recordB.date - recordA.date); 
     this.setState({records})
   }
-  
+
+/*  sort (flag){
+    let records = [...this.state.records];
+    if (flag === true){
+      records.sort( (recordA,recordB) => recordB.date - recordA.date); 
+    }else{
+      records.sort( (recordA,recordB) => recordA.date - recordB.date); 
+    }
+    this.setState({records})
+  }
+  */
+
   render() {
     return (
       <View style={styles.container}>
@@ -68,10 +79,18 @@ export default class App extends Component {
         </View>
         <View style={styles.records}>
           <View style={styles.recordsBar}>
-            <TouchableHighlight>
+            <TouchableHighlight onPress= {sort = () => {
+              let records = [...this.state.records];
+              records.sort( (recordA,recordB) => recordB.date - recordA.date); 
+              this.setState({records})
+            }}>
               <Text style={styles.touchableBarText}>PESO</Text>
             </TouchableHighlight>
-            <TouchableHighlight>
+            <TouchableHighlight onPress= {sort = () => {
+              let records = [...this.state.records];
+              records.sort( (recordA,recordB) => recordA.date - recordB.date); 
+              this.setState({records})
+            }}>
               <Text style={styles.touchableBarText}>FECHA</Text>
           </TouchableHighlight>
           </View>
@@ -128,3 +147,4 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 });
+
